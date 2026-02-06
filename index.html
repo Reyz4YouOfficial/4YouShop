@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading Page</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #010a13;
+            font-family: 'Segoe UI', sans-serif;
+            color: #c8aa6e;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            width: 350px;
+        }
+
+        /* Spinner Animasi */
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(200, 170, 110, 0.1);
+            border-top: 3px solid #c8aa6e;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 30px;
+        }
+
+        /* Container Progress Bar */
+        .progress-container {
+            width: 100%;
+            height: 4px;
+            background-color: #1e2328;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        /* Isi Progress Bar */
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background: #c8aa6e;
+            box-shadow: 0 0 15px #c8aa6e;
+            transition: width 0.1s linear;
+        }
+
+        /* Teks Status Relay */
+        .status-text {
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: #a09478;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="spinner"></div>
+        
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <div class="status-text" id="statusText">Memuat Data</div>
+    </div>
+
+    <script>
+        const texts = ["Memuat Data", "Check Network", "Complicated"];
+        const statusElement = document.getElementById('statusText');
+        const progressBar = document.getElementById('progressBar');
+        
+        let currentTextIndex = 0;
+        let progress = 0;
+
+        // 1. Relay Teks (Setiap 10 Detik)
+        const textInterval = setInterval(() => {
+            currentTextIndex = (currentTextIndex + 1) % texts.length;
+            statusElement.innerText = texts[currentTextIndex];
+        }, 10000);
+
+        // 2. Progress Bar & Auto-Redirect
+        const progressInterval = setInterval(() => {
+            progress += 0.3; // Sesuaikan angka ini untuk kecepatan loading
+            progressBar.style.width = progress + "%";
+
+            if (progress >= 100) {
+                clearInterval(progressInterval);
+                clearInterval(textInterval);
+                
+                statusElement.innerText = "Mengarahkan...";
+                
+                // Beri sedikit delay 0.5 detik saat sudah 100% sebelum pindah
+                setTimeout(() => {
+                    window.location.href = "cpanel.html"; // Ganti ke URL tujuanmu
+                }, 500);
+            }
+        }, 50);
+    </script>
+
+</body>
+</html>
