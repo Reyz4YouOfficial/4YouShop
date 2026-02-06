@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library | Reyz4YouXGod</title>
+    <style>
+        :root {
+            --bg-dark: #010a13;
+            --panel-dark: #0a1428;
+            --gold: #c8aa6e;
+            --green: #0ac8b9;
+            --text-gray: #a09478;
+        }
+
+        body {
+            margin: 0; font-family: 'Segoe UI', sans-serif;
+            background-color: var(--bg-dark); color: #f0e6d2;
+            display: flex; height: 100vh; overflow: hidden;
+        }
+
+        /* --- Sidebar Fix --- */
+        .hamburger { position: fixed; top: 15px; left: 15px; z-index: 1001; cursor: pointer; background: var(--panel-dark); border: 1px solid var(--gold); padding: 8px; border-radius: 4px; display: flex; flex-direction: column; gap: 5px; }
+        .hamburger span { display: block; width: 25px; height: 3px; background: var(--gold); }
+        .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(2px); z-index: 999; display: none; opacity: 0; transition: 0.3s; }
+        .sidebar-overlay.active { display: block; opacity: 1; }
+        .sidebar { width: 260px; background: var(--panel-dark); border-right: 2px solid var(--gold); position: fixed; height: 100%; z-index: 1000; transform: translateX(-100%); transition: 0.3s ease-in-out; padding: 20px; display: flex; flex-direction: column; }
+        .sidebar.active { transform: translateX(0); }
+        .profile-section { text-align: center; padding: 40px 0 20px 0; border-bottom: 1px solid rgba(200, 170, 110, 0.2); margin-bottom: 20px; }
+        .profile-img { width: 80px; height: 80px; border-radius: 50%; border: 2px solid var(--gold); object-fit: cover; margin-bottom: 10px; }
+        .profile-name { color: var(--gold); font-weight: bold; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
+        .nav-item { display: block; padding: 12px; color: var(--text-gray); text-decoration: none; font-weight: bold; border-radius: 4px; transition: 0.2s; }
+        .nav-item:hover { background: rgba(200, 170, 110, 0.1); color: var(--gold); }
+        .nav-item.active { color: var(--gold); background: rgba(200, 170, 110, 0.05); border-left: 3px solid var(--gold); }
+
+        /* --- Layout --- */
+        .main-content { flex: 1; overflow-y: auto; width: 100%; scrollbar-width: none; }
+        .header-section { position: relative; width: 100%; height: 150px; overflow: hidden; border-bottom: 2px solid var(--gold); display: flex; align-items: center; justify-content: center; }
+        .header-section video { position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0.3; z-index: -1; }
+        .header-section h1 { font-size: 1.8rem; color: var(--gold); text-transform: uppercase; letter-spacing: 5px; }
+
+        .container { padding: 25px; max-width: 1200px; margin: 0 auto; }
+        .category-title { color: var(--gold); border-left: 4px solid var(--gold); padding-left: 15px; margin: 30px 0 15px 0; text-transform: uppercase; font-size: 1rem; }
+        .library-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px; }
+        .lib-card { background: var(--panel-dark); border: 1px solid #1e2328; border-radius: 8px; padding: 15px; display: flex; flex-direction: column; transition: 0.3s; }
+        .lib-card:hover { border-color: var(--gold); transform: translateY(-5px); }
+        .lib-card h3 { margin: 0; color: #fff; font-size: 0.95rem; }
+        .lib-card .desc { font-size: 0.8rem; color: var(--text-gray); margin: 10px 0; flex-grow: 1; line-height: 1.4; }
+        .price { font-family: 'Courier New', monospace; color: var(--green); font-weight: bold; margin-bottom: 12px; display: block; font-size: 1.1rem; }
+        .order-btn { background: var(--gold); color: #000; text-align: center; padding: 10px; text-decoration: none; font-weight: bold; font-size: 0.8rem; text-transform: uppercase; border-radius: 4px; transition: 0.3s; }
+        .order-btn:hover { background: #fff; box-shadow: 0 0 10px var(--gold); }
+    </style>
+</head>
+<body>
+
+    <div class="hamburger" onclick="toggleSidebar()"><span></span><span></span><span></span></div>
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <div class="sidebar" id="sidebar">
+        <div class="profile-section">
+            <img src="https://h.top4top.io/p_36895xotu5.png" alt="Reyz" class="profile-img">
+            <div class="profile-name">Reyz4YouXGod</div>
+        </div>
+        <nav class="nav-list">
+            <a href="/dashboard" class="nav-item">Dashboard</a>
+            <a href="/about" class="nav-item">About</a>
+            <a href="/" class="nav-item active">Produk</a>
+        </nav>
+    </div>
+
+    <div class="main-content">
+        <div class="header-section">
+            <video autoplay muted loop playsinline><source src="https://g.top4top.io/m_3672d3e6p5.mp4" type="video/mp4"></video>
+            <h1></h1>
+        </div>
+
+        <div class="container">
+            <div class="category-title">VPS KVM (R-Series)</div>
+            <div class="library-grid">
+                <div class="lib-card"><h3>VPS R2C2</h3><p class="desc">2GB RAM | 2 vCPU<br>40GB NVMe</p><span class="price">IDR 10,000</span><a href="https://wa.me/6281929461281?text=Order%20VPS%20R2C2%20-%20IDR%2010,000" class="order-btn">Order Now</a></div>
+                <div class="lib-card"><h3>VPS R4C2</h3><p class="desc">4GB RAM | 2 vCPU<br>60GB NVMe</p><span class="price">IDR 15,000</span><a href="https://wa.me/6281929461281?text=Order%20VPS%20R4C2%20-%20IDR%2015,000" class="order-btn">Order Now</a></div>
+                <div class="lib-card"><h3>VPS R8C4</h3><p class="desc">8GB RAM | 4 vCPU<br>100GB NVMe</p><span class="price">IDR 20,000</span><a href="https://wa.me/6281929461281?text=Order%20VPS%20R8C4%20-%20IDR%2020,000" class="order-btn">Order Now</a></div>
+                <div class="lib-card"><h3>VPS R16C4</h3><p class="desc">16GB RAM | 4 vCPU<br>160GB NVMe</p><span class="price">IDR 25,000</span><a href="https://wa.me/6281929461281?text=Order%20VPS%20R16C4%20-%20IDR%2025,000" class="order-btn">Order Now</a></div>
+            </div>
+
+            <div class="category-title">Pterodactyl Panel</div>
+            <div class="library-grid">
+                <div class="lib-card"><h3>Panel 1GB - 10GB</h3><p class="desc">High performance bot hosting.</p><span class="price">Start IDR 1,000</span><a href="https://wa.me/6281929461281?text=Cek%20List%20Harga%20Ptero%201GB-10GB" class="order-btn">Cek List</a></div>
+                <div class="lib-card"><h3>Panel Unlimited</h3><p class="desc">Resource tanpa batas.</p><span class="price">IDR 12,000</span><a href="https://wa.me/6281929461281?text=Order%20Panel%20Unlimited%20-%20IDR%2012,000" class="order-btn">Order Now</a></div>
+            </div>
+
+            <div class="category-title">APK Premium</div>
+            <div class="library-grid">
+                <div class="lib-card">
+                    <h3>AM Premium (1 Tahun)</h3>
+                    <p class="desc">Full Preset & No Watermark.</p>
+                    <span class="price">IDR 3,000</span>
+                    <a href="https://wa.me/6281929461281?text=Order%20AM%20Premium%201%20Tahun%20-%20IDR%203,000" class="order-btn">Order Now</a>
+                </div>
+                <div class="lib-card">
+                    <h3>Canva Pro (1 Bulan)</h3>
+                    <p class="desc">Premium Template & Magic Resize.</p>
+                    <span class="price">IDR 5,000</span>
+                    <a href="https://wa.me/6281929461281?text=Order%20Canva%20Pro%201%20Bulan%20-%20IDR%205,000" class="order-btn">Order Now</a>
+                </div>
+                <div class="lib-card">
+                    <h3>Spotify (1 Bulan)</h3>
+                    <p class="desc">No Ads & High Quality Audio.</p>
+                    <span class="price">IDR 10,000</span>
+                    <a href="https://wa.me/6281929461281?text=Order%20Spotify%201%20Bulan%20-%20IDR%2010,000" class="order-btn">Order Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleSidebar() { document.getElementById('sidebar').classList.toggle('active'); document.getElementById('sidebarOverlay').classList.toggle('active'); }
+        function closeSidebar() { document.getElementById('sidebar').classList.remove('active'); document.getElementById('sidebarOverlay').classList.remove('active'); }
+    </script>
+</body>
+</html>
