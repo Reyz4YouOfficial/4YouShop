@@ -11,7 +11,7 @@
     },
     {
       "source": "/produk",
-      "destination": "/library.html"
+      "destination": "/produk.html"
     }
   ]
 }
